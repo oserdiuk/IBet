@@ -22,6 +22,7 @@ namespace IBet.Infrastructure.Data
         public DbSet<Interest> Interests { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<UserInterest> UserInterests { get; set; }
+        public DbSet<UserInBet> UsersInBet { get; set; }
 
         public static ApplicationDbContext Create()
         {

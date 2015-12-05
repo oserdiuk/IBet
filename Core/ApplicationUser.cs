@@ -29,9 +29,10 @@ namespace IBet.Domain.Core
 
         public bool IsDeleted { get; set; }
 
-        public string ImagePath { get; set; }
+        public string ImageName { get; set; }
+       //TO-DO add about field
 
-        public virtual ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<UserInBet> UserInBets { get; set; }
 
         public virtual ICollection<Friend> Connections { get; set; }
 

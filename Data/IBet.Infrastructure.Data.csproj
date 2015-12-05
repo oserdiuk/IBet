@@ -59,6 +59,14 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BetsRepository.cs" />
+    <Compile Include="Repositories\FriendsRepository.cs" />
+    <Compile Include="Repositories\InterestsRepository.cs" />
+    <Compile Include="Repositories\NewsRepository.cs" />
+    <Compile Include="Repositories\UserInterestsRepository.cs" />
+    <Compile Include="Repositories\UsersRepository.cs" />
+    <Compile Include="Repositories\UsersInBetRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -68,6 +76,10 @@
     <ProjectReference Include="..\Core\IBet.Domain.Core.csproj">
       <Project>{0ab8b896-e8b8-43fa-8920-8153c5f10b22}</Project>
       <Name>IBet.Domain.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\IBet.Domain.Interfaces.csproj">
+      <Project>{0b171f83-81c5-4553-80d6-e50f45325e14}</Project>
+      <Name>IBet.Domain.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

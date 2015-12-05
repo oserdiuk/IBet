@@ -45,5 +45,7 @@ namespace IBet.Domain.Core
 
         public virtual Interest Interest { get; set; }
 
+        //TO-DO add private/public field
+
     }
 }

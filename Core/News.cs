@@ -18,7 +18,11 @@ namespace IBet.Domain.Core
 
         public string Description { get; set; }
 
-        public string PhotoPath { get; set; }
+        public string PhotoName { get; set; }
+
+        public int LikesCount { get; set; }
+
+        public int DislikesCount { get; set; }
 
         public bool IsDeleted { get; set; }
 

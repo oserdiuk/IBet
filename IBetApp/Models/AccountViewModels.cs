@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IBetApp.Models
@@ -79,6 +80,24 @@ namespace IBetApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Range(18, 200)]
+        [Required]
+        public int Age { get; set; }
+
+        public string City { get; set; }
+
+        [Required]
+        public string Country { get; set; }
+
+        [Required]
+        public string ImagePath { get; set; }
     }
 
     public class ResetPasswordViewModel

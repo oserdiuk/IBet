@@ -152,7 +152,14 @@ namespace IBetApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, RegisterDate = DateTime.Now };
+                ApplicationUser user = AutoMapper.Mapper.Map<RegisterViewModel, ApplicationUser>(model);
+                user.UserName = model.Email;
+                user.MoneyLeft = 0;
+                user.RegisterDate = DateTime.Now;
+                if (user.ImageName == "")
+                {
+                    user.ImageName = "nophoto";
+                }
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
