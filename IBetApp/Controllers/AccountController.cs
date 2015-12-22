@@ -160,8 +160,7 @@ namespace IBetApp.Controllers
                 {
                     user.ImageName = String.Format("{0}.{1}", Guid.NewGuid(), file.FileName.Split('.').LastOrDefault());
                     file.SaveAs(HttpContext.Server.MapPath("../Content/Images/")
-                                                          + user.ImageName);
-                    
+                                                          + user.ImageName);   
                 }
                 //if (user.ImageName == null || user.ImageName == "")
                 else
