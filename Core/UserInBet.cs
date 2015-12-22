@@ -22,5 +22,16 @@ namespace IBet.Domain.Core
         public virtual Bet Bet { get; set; }
         public virtual News News { get; set; }
 
+        public UserInBet()
+        {
+
+        }
+
+        public UserInBet(string userId, int betId, int newsId)
+        {
+            this.UserId = userId;
+            this.BetId = betId;
+            this.NewsId = newsId;
+        }
     }
 }

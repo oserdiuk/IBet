@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace IBet.Data.Repositories
 {
-    public class UsersRepository : IRepository<ApplicationUser>
+    public class UsersRepository 
     {
         private ApplicationDbContext context; 
-
+        //TO-DO implement interface IRepository
         public UsersRepository(ApplicationDbContext context)
         {
             this.context = context;
@@ -24,12 +24,12 @@ namespace IBet.Data.Repositories
             context.Users.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             Get(id).IsDeleted = true;
         }
 
-        public ApplicationUser Get(int id)
+        public ApplicationUser Get(string id)
         {
             return context.Users.Find(id);
         }

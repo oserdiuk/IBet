@@ -3,6 +3,7 @@ using IBet.Domain.Interfaces;
 using IBet.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace IBet.Data.Repositories
         }
         public void Create(UserInBet item)
         {
-            throw new NotImplementedException();
+            context.UsersInBet.Add(item);
         }
 
         public void Delete(int id)
@@ -29,17 +30,26 @@ namespace IBet.Data.Repositories
 
         public UserInBet Get(int id)
         {
-            throw new NotImplementedException();
+            return context.UsersInBet.Find(id);
         }
 
         public IEnumerable<UserInBet> GetAll()
         {
-            throw new NotImplementedException();
+            return this.context.UsersInBet;
         }
 
         public void Update(UserInBet item)
         {
-            throw new NotImplementedException();
+            context.Entry(item).State = EntityState.Modified;
+        }
+
+        public void CreateForUser(string userId, Bet bet)
+        {
+            UnitOfWork unitOfWork = new UnitOfWork();
+            unitOfWork.NewsRepository.Create(new News(userId, "New bet!", String.Format("{0}/n{1}", bet.Interest, bet.Description)));
+            int curNewsId = unitOfWork.NewsRepository.GetAll().LastOrDefault().Id;
+            unitOfWork.UsersInBetRepository.Create(new UserInBet(userId, bet.Id, curNewsId));
+            unitOfWork.Save();
         }
     }
 }

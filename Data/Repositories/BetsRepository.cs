@@ -39,6 +39,11 @@ namespace IBet.Data.Repositories
             return context.Bets;
         }
 
+        public IEnumerable<Bet> GetPublicBets()
+        {
+            return context.Bets.Where(b => b.IsPublic);
+        }
+
         public void Update(Bet item)
         {
             context.Entry(item).State = EntityState.Modified;
@@ -46,7 +51,25 @@ namespace IBet.Data.Repositories
 
         public IEnumerable<Bet> GetTheNewestBets(int countOfBets)
         {
-            return this.GetAll().OrderByDescending(b => b.StartDate).Take(countOfBets);
+            return this.GetAll().Where(b=>b.IsPublic).OrderByDescending(b => b.StartDate).Take(countOfBets);
         }
+
+        public static int GetStatusNumber(BetStatus status)
+        {
+            return (int)status;
+        }
+
+        public static BetStatus GetStatusEnum(int statusNumber)
+        {
+            return (BetStatus)statusNumber;
+        }
+    }
+
+    public enum BetStatus
+    {
+        Applying,
+        InProgress,
+        Finished,
+        Done
     }
 }

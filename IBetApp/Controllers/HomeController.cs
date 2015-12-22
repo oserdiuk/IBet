@@ -13,13 +13,26 @@ namespace IBetApp.Controllers
     {
         UnitOfWork unitOfWork = new UnitOfWork();
         const int COUNT_OF_BEST_USERS = 10;
-        const int COUNT_OF_NEW_BETS  = 10;
+        const int COUNT_OF_NEW_BETS = 10;
         public ActionResult Index()
         {
             HomePageViewModel model = new HomePageViewModel();
-            model.Users = unitOfWork.UsersRepository.GetTopBestByBets(COUNT_OF_BEST_USERS);
-            var user = model.Users.FirstOrDefault();
-            model.Bets = unitOfWork.BetsRepository.GetTheNewestBets(COUNT_OF_NEW_BETS);
+            try
+            {
+                model.Users = AutoMapper.Mapper.Map<IEnumerable<TopUserViewModel>>(unitOfWork.UsersRepository.GetTopBestByBets(COUNT_OF_BEST_USERS));
+                var user = model.Users.FirstOrDefault();
+                model.Bets = AutoMapper.Mapper.Map<IEnumerable<NewBetsViewModel>>(unitOfWork.BetsRepository.GetTheNewestBets(COUNT_OF_NEW_BETS));
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(model);
+        }
+
+        public ActionResult AllUsers()
+        {
+            List<UserSummaryViewModel> model = AutoMapper.Mapper.Map<IEnumerable<UserSummaryViewModel>>(unitOfWork.UsersRepository.GetAll()).ToList();
             return View(model);
         }
 

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<IBetApp.Models.UserInfoViewModel>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src=@String.Format("/Content/Images/{0}", item.ImageName) class="avatar avatar-medium" />
+        </td>
+        <td>
+            @ViewBag.NoUsersChosen
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            <a href="#" id=@item.Id class="link">Remove from list</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+    $('.link').click(function() {
+        var id = $(this).attr("id");
+        var model = @Html.Raw(Json.Encode(Model));
+        var data = JSON.stringify(model);
+
+        $.ajax({
+            url: "/Bet/RemoveUserFromBet",
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            data: {jsonModel: data, id: id},
+            success: function(result) {
+                $('#list-of-users').html(result);
+            }
+        });
+    });
+  
+</script>

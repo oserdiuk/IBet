@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 120px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -22,3 +23,34 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.avatar {
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-border-radius: 99em;
+    -moz-border-radius: 99em;
+    border-radius: 99em;
+    border: 1px solid #eee;
+}
+
+.avatar-small {
+    width: 20px;
+    height: 20px;
+}
+
+.avatar-medium {
+    width: 100px;
+    height: 100px;
+}
+
+.avatar-large {
+    width: 500px;
+    height: 500px;
+}
+
+.selected-row{
+    background-color: #afd6f7;
+}
+

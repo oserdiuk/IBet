@@ -1,0 +1,82 @@
+﻿@model IEnumerable<IBetApp.Models.UserSummaryViewModel>
+
+@{
+    ViewBag.Title = "All Users";
+}
+@if (ViewBag.SuccesCreateBet == true)
+{
+    <script>
+        alert("Congratulations! You have successfully created a bet.")
+    </script>
+}
+
+<h2>All Users</h2>
+<a href="#">Bet with chosen users</a>
+<table class="table ">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="users" id=@item.Id>
+            <td>
+                <img src=@String.Format("/Content/Images/{0}", item.ImageName) class="avatar avatar-medium" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @if (item.Age != 0)
+                {
+                    @Html.DisplayFor(modelItem => item.Age)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.ActionLink("Bet with user", "Bet", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+    var ids = [];
+    $(".users").click(function () {
+        var rowClass = "selected-row";
+        if ($(this).hasClass(rowClass)) {
+            $(this).removeClass(rowClass);
+            ids.splice(ids.indexOf($(this).attr("id")), 1);
+        }
+        else {
+            $(this).addClass(rowClass);
+            ids.push($(this).attr("id"));
+        }
+    })
+
+    $("a").click(function () {
+        $.post("/Bet/CreateWithMultipleUsers", { users: ids }, function (result) {
+            if (result != null) {
+                $("html").html(result);
+            }
+            else {
+                alert("fail");
+            }
+        });
+    })
+   
+</script>

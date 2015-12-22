@@ -148,7 +148,7 @@ namespace IBetApp.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -156,15 +156,23 @@ namespace IBetApp.Controllers
                 user.UserName = model.Email;
                 user.MoneyLeft = 0;
                 user.RegisterDate = DateTime.Now;
-                if (user.ImageName == "")
+                if (file != null)
+                {
+                    user.ImageName = String.Format("{0}.{1}", Guid.NewGuid(), file.FileName.Split('.').LastOrDefault());
+                    file.SaveAs(HttpContext.Server.MapPath("../Content/Images/")
+                                                          + user.ImageName);
+                    
+                }
+                //if (user.ImageName == null || user.ImageName == "")
+                else
                 {
                     user.ImageName = "nophoto";
                 }
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -175,7 +183,6 @@ namespace IBetApp.Controllers
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }

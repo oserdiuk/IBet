@@ -1,0 +1,80 @@
+﻿@model IBetApp.Models.UserInfoViewModel
+
+@{
+    ViewBag.Title = "My profile";
+}
+
+<h2>My profile</h2>
+
+<div>
+    <hr />
+    <div class="col-md-5">
+        <img src=@String.Format("/Content/Images/{0}", Model.ImageName) class="avatar avatar-large" />
+    </div>
+    <dl class="dl-horizontal col-md-7">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoneyLeft)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoneyLeft)
+        </dd>
+
+    </dl>
+</div>

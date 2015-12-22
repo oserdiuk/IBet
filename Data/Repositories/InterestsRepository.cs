@@ -29,12 +29,12 @@ namespace IBet.Data.Repositories
 
         public Interest Get(int id)
         {
-            throw new NotImplementedException();
+            return this.context.Interests.Find(id);
         }
 
         public IEnumerable<Interest> GetAll()
         {
-            throw new NotImplementedException();
+            return this.context.Interests;
         }
 
         public void Update(Interest item)

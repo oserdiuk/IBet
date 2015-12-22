@@ -27,5 +27,19 @@ namespace IBet.Domain.Core
         public bool IsDeleted { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        public News()
+        {
+
+        }
+
+        public News(string userId, string name, string description, string photoName = "")
+        {
+            this.UserId = userId;
+            this.Name = name;
+            this.Description = description;
+            this.PhotoName = photoName;
+            this.PublishDate = DateTime.Today;
+        }
     }
 }

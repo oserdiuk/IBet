@@ -30,7 +30,8 @@ namespace IBet.Domain.Core
         public bool IsDeleted { get; set; }
 
         public string ImageName { get; set; }
-       //TO-DO add about field
+
+        public string Description { get; set; }
 
         public virtual ICollection<UserInBet> UserInBets { get; set; }
 

@@ -34,6 +34,7 @@ namespace IBet.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<UserInBet>().Property(m => m.NewsId).IsOptional();
         }
     }
 }

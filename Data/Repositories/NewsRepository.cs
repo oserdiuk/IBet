@@ -3,6 +3,7 @@ using IBet.Domain.Interfaces;
 using IBet.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,27 +20,27 @@ namespace IBet.Data.Repositories
         }
         public void Create(Domain.Core.News item)
         {
-            throw new NotImplementedException();
+            this.context.News.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            this.Get(id).IsDeleted = true;
         }
 
         public Domain.Core.News Get(int id)
         {
-            throw new NotImplementedException();
+            return this.context.News.Find(id);
         }
 
         public IEnumerable<Domain.Core.News> GetAll()
         {
-            throw new NotImplementedException();
+            return this.context.News;
         }
 
         public void Update(Domain.Core.News item)
         {
-            throw new NotImplementedException();
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }

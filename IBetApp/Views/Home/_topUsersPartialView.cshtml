@@ -1,0 +1,31 @@
+﻿@model IEnumerable<IBetApp.Models.TopUserViewModel>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfVictories)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {       
+         <tr>
+            <td>
+                <img src=@String.Format("/Content/Images/{0}", item.PictureName) class="avatar avatar-small" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfVictories)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("All users", "AllUsers")

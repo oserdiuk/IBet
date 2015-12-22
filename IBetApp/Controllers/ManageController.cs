@@ -7,12 +7,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IBetApp.Models;
+using IBet.Infrastructure.Data;
+using IBet.Domain.Core;
 
 namespace IBetApp.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private UnitOfWork unitOfWork = new UnitOfWork();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -73,6 +76,29 @@ namespace IBetApp.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
+        }
+
+        public ActionResult AddMoney()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddMoney(AddingUserMoneyViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = unitOfWork.UsersRepository.Get(User.Identity.GetUserId());
+                user.MoneyLeft += model.MoneyToAdd;
+                unitOfWork.Save();
+            }
+            return View(model);
+        }
+
+        public ActionResult Profile()
+        {
+            var user = AutoMapper.Mapper.Map<ApplicationUser, UserInfoViewModel>(unitOfWork.UsersRepository.Get(User.Identity.GetUserId()));
+            return View(user);
         }
 
         //

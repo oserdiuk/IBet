@@ -95,9 +95,6 @@ namespace IBetApp.Models
 
         [Required]
         public string Country { get; set; }
-
-        [Required]
-        public string ImagePath { get; set; }
     }
 
     public class ResetPasswordViewModel
