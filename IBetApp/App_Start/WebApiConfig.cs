@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.ApplicationServer.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -27,7 +29,6 @@ namespace IBetApp.App_Start
             var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             formatter.SerializerSettings.ContractResolver =
                 new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-
         }
     
 }

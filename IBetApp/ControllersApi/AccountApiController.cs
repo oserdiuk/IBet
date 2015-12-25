@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,6 +8,12 @@ using System.Web.Http;
 
 namespace IBetApp.ControllersApi
 {
+
+    public class LogInViewModel
+    {
+        public string login { get; set; }
+        public string password { get; set; }
+    }
     public class AccountApiController : ApiController
     {
         // GET: api/Account
@@ -22,9 +29,12 @@ namespace IBetApp.ControllersApi
         }
 
         // POST: api/Account
-        public void Post([FromBody]string value)
+        public object Post([FromBody]LogInViewModel viewModel)
         {
+            return Request.CreateResponse(HttpStatusCode.OK, JsonConvert.SerializeObject(true));
         }
+
+
 
         // PUT: api/Account/5
         public void Put(int id, [FromBody]string value)
