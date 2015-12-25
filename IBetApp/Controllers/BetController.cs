@@ -47,19 +47,22 @@ namespace IBetApp.Controllers
             try
             {
                 CreateBetViewModel model = JsonConvert.DeserializeObject<CreateBetViewModel>(jsonModel);
-                model.InterestName = "1";
+                model.InterestName = "3";
                 Bet bet = AutoMapper.Mapper.Map<CreateBetViewModel, Bet>(model);
                 bet.StatusId = BetsRepository.GetStatusNumber(BetStatus.Applying);
                 unitOfWork.BetsRepository.Create(bet);
                 bet.Id = unitOfWork.BetsRepository.GetAll().LastOrDefault().Id;
                 string curUserId = unitOfWork.UsersRepository.GetAll().Where(u => u.UserName == User.Identity.Name).FirstOrDefault().Id;
+                unitOfWork.Save();
                 unitOfWork.UsersInBetRepository.CreateForUser(curUserId, bet);
                 foreach (var user in model.Users)
                 {
                     unitOfWork.UsersInBetRepository.CreateForUser(user.Id, bet);
                 }
+
                 ViewBag.SuccesCreateBet = true;
                 unitOfWork.Save();
+                RedirectToAction("AllBets", "Bet");
             }
             catch (Exception ex)
             {
@@ -67,6 +70,12 @@ namespace IBetApp.Controllers
                 throw;
             }
             return RedirectToAction("AllUsers", "Home");
+        }
+
+        public ActionResult AllBets()
+        {
+            List<BetInfoViewModel> bets = AutoMapper.Mapper.Map<IEnumerable<BetInfoViewModel>>(unitOfWork.BetsRepository.GetAll()).ToList();
+            return View(bets);
         }
 
         public PartialViewResult RemoveUserFromBet(string jsonModel, string id)

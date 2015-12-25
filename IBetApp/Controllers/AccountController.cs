@@ -156,6 +156,7 @@ namespace IBetApp.Controllers
                 user.UserName = model.Email;
                 user.MoneyLeft = 0;
                 user.RegisterDate = DateTime.Now;
+
                 if (file != null)
                 {
                     user.ImageName = String.Format("{0}.{1}", Guid.NewGuid(), file.FileName.Split('.').LastOrDefault());

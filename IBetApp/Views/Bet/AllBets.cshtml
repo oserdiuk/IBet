@@ -1,0 +1,49 @@
+﻿@model IEnumerable<IBetApp.Models.BetInfoViewModel>
+
+@{
+    ViewBag.Title = "AllBets";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoneySum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+      
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoneySum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterestName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        
+    </tr>
+}
+
+</table>
