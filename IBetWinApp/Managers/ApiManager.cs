@@ -12,7 +12,7 @@ namespace IBetWinApp.Managers
 {
     public static class ApiManager
     {
-
+        
         private static string GetParameterString(Dictionary<string, string> paramters)
         {
             List<string> parametersList = new List<string>();

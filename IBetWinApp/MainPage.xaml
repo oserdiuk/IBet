@@ -24,12 +24,13 @@
                 Width="200"
                 PlaceholderText="Enter password"/>
             <Button 
+                x:Name="loginButton"
                 Width="100" 
                 Height="30"
                 Content="Login"
                 Margin="10"
                 HorizontalAlignment="Center" 
-                Click="Button_Click"/>
+                Click="loginButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>

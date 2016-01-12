@@ -19,9 +19,9 @@ namespace IBetApp.Controllers
             HomePageViewModel model = new HomePageViewModel();
             try
             {
-                model.Users = AutoMapper.Mapper.Map<IEnumerable<TopUserViewModel>>(unitOfWork.UsersRepository.GetTopBestByBets(COUNT_OF_BEST_USERS));
+                model.Users = AutoMapper.Mapper.Map<IEnumerable<TopUserViewModel>>(unitOfWork.UsersRepository.GetTopBestByBets(COUNT_OF_BEST_USERS).ToList());
                 var user = model.Users.FirstOrDefault();
-                model.Bets = AutoMapper.Mapper.Map<IEnumerable<NewBetsViewModel>>(unitOfWork.BetsRepository.GetTheNewestBets(COUNT_OF_NEW_BETS));
+                model.Bets = AutoMapper.Mapper.Map<IEnumerable<NewBetsViewModel>>(unitOfWork.BetsRepository.GetTheNewestBets(COUNT_OF_NEW_BETS).ToList());
             }
             catch (Exception ex)
             {

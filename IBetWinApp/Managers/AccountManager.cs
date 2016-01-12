@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IBetWinApp.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +10,26 @@ namespace IBetWinApp.Managers
 {
     public class AccountManager
     {
-        public static async Task Login(string login, string pass)
+        
+        public static async Task<UserModel> Login(string login, string pass)
         {
-            string result = await ApiManager.ExecutePostRequest("api/accountapi",
+            string result = await ApiManager.ExecutePostRequest("api/loginapi",
                 new Dictionary<string, string>
                 {
                     ["login"] = login,
                     ["password"] = pass
                 });
-            int a = 5;
-            //TODO: deserialize response
+            UserModel user = null;
+            try
+            {
+                result = result.Replace(@"\","");
+                result = result.Substring(1, result.Length - 2);
+                user = JsonConvert.DeserializeObject<UserModel>(result);
+            } catch (Exception ex)
+            {
+
+            }
+            return user;
         }
     }
 }

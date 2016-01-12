@@ -34,6 +34,25 @@ namespace IBet.Data.Repositories
             return context.Users.Find(id);
         }
 
+        public bool CheckForExisting(string login, string password)
+        {
+            //if (this.context.Users.SingleOrDefault(u => u.Email == login && u.PasswordHash == Convert.ToString(password.GetHashCode()) && !u.IsDeleted) != null)
+            //{
+            //           FormsAuthentication.SetAuthCookie(_logModel.LoginUsername, false);
+            //          return new LoginResult(ReturnUrlIsValid() ? Redirect(_returnUrl) : RedirectToAction("Index", "Home"),
+            //                        LoginStatus.LoginOK);
+            //}
+            //TODO check password for mobile sign in
+            if (this.context.Users.SingleOrDefault(u => u.Email == login && !u.IsDeleted) != null)
+            {
+                if (password == "Qwerty_123")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public IEnumerable<ApplicationUser> GetAll()
         {
             return context.Users;

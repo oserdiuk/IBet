@@ -8,16 +8,17 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-   @using IBetApp.Helpers
+    @using IBet.Domain.Interfaces.Entities
+    @using IBetApp.Helpers
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                
-                @Html.ActionImage("Home", "Index", new { area = "" }, "/Content/Images/logo.png", "Home", new { id = "homeLink", @width = "200px" })
+
+                @Html.ActionImage("Home", "Index", new { area = "" }, "/Content/Images/logo.png", "Home", new { id = "homeLink", @height = "70px" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new {@class ="active"})</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { @class = "active" })</li>
                     <li>@Html.ActionLink("Help", "Help", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

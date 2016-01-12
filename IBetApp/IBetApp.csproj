@@ -228,7 +228,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="ControllersApi\AccountApiController.cs" />
+    <Compile Include="ControllersApi\LoginApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -242,6 +242,7 @@
       <DependentUpon>201512061209028_ApplicatonDbContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelsApi\LogInViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddingUserMoneyViewModel.cs" />
     <Compile Include="Models\BetInfoViewModel.cs" />
@@ -349,6 +350,10 @@
     <ProjectReference Include="..\Data\IBet.Infrastructure.Data.csproj">
       <Project>{8119f9d8-37d8-4108-88a0-75d9c4da2e35}</Project>
       <Name>IBet.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\IBet.Domain.Interfaces.csproj">
+      <Project>{0B171F83-81C5-4553-80D6-E50F45325E14}</Project>
+      <Name>IBet.Domain.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
