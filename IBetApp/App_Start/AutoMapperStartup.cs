@@ -33,6 +33,7 @@ namespace IBetApp.App_Start
             Mapper.CreateMap<Bet, BetInfoViewModel>().ForMember("InterestName", m => m.MapFrom(src => src.Interest.InterestTitle));
 
             Mapper.CreateMap<ApplicationUser, UserInfoViewModel>();
+            Mapper.CreateMap<News, NewsInfoViewModel>();
             Mapper.CreateMap<ApplicationUser, UserSummaryViewModel>();
         }
 

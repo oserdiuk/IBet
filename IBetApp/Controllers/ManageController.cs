@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using IBetApp.Models;
 using IBet.Infrastructure.Data;
 using IBet.Domain.Core;
+using System.Diagnostics;
 
 namespace IBetApp.Controllers
 {
@@ -35,9 +36,9 @@ namespace IBetApp.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -97,10 +98,49 @@ namespace IBetApp.Controllers
 
         public ActionResult Profile()
         {
-            var user = AutoMapper.Mapper.Map<ApplicationUser, UserInfoViewModel>(unitOfWork.UsersRepository.Get(User.Identity.GetUserId()));
-            return View(user);
+            try
+            {
+                var user = AutoMapper.Mapper.Map<ApplicationUser, UserInfoViewModel>(unitOfWork.UsersRepository.Get(User.Identity.GetUserId()));
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return null;
         }
 
+        public ActionResult AddFriend(string userId)
+        {
+            try {
+                unitOfWork.FriendsRepository.Create(new Friend(User.Identity.GetUserId(), userId));
+                unitOfWork.Save();
+                TempData["AreFriend"] = "true";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            return RedirectToAction("ViewUserPage", "Home", new { id = userId });
+        }
+
+        public ActionResult RemoveFriend(string userId)
+        {
+            try
+            {
+                //TODO check is it works 
+                unitOfWork.FriendsRepository.Delete(userId, User.Identity.GetUserId());
+                unitOfWork.Save();
+                //TODO check if temmp data works
+                TempData["AreFriend"] = "false";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            return RedirectToAction("ViewUserPage", "Home", new { id = userId });
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

@@ -46,7 +46,7 @@ namespace IBet.Data.Repositories
         public void CreateForUser(string userId, Bet bet)
         {
             UnitOfWork unitOfWork = new UnitOfWork();
-            unitOfWork.NewsRepository.Create(new News(userId, "New bet!", String.Format("{0}/n{1}", bet.Interest, bet.Description)));
+            unitOfWork.NewsRepository.Create(new News(userId, "New bet!", String.Format("{0}/n{1}", bet.Interest.InterestTitle, bet.Description)));
             int curNewsId = unitOfWork.NewsRepository.GetAll().LastOrDefault().Id;
             unitOfWork.UsersInBetRepository.Create(new UserInBet(userId, bet.Id, curNewsId));
             unitOfWork.Save();

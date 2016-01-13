@@ -29,7 +29,12 @@
 
     @foreach (var item in Model)
     {
-        <tr class="users" id=@item.Id>
+        <tr class="users
+                @if (User.Identity.Name == item.UserName)
+                {
+                   <text> curr-user</text>
+                }
+                " id=@item.Id>
             <td>
                 <img src=@String.Format("/Content/Images/{0}", item.ImageName) class="avatar avatar-medium" />
             </td>
@@ -46,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
-                @Html.ActionLink("Bet with user", "Bet", new { id = item.Id })
+                    @Html.ActionLink("Go to user page", "ViewUserPage", new { id = item.Id })
             </td>
         </tr>
     }
@@ -57,14 +62,16 @@
 <script type="text/javascript">
     var ids = [];
     $(".users").click(function () {
-        var rowClass = "selected-row";
-        if ($(this).hasClass(rowClass)) {
-            $(this).removeClass(rowClass);
-            ids.splice(ids.indexOf($(this).attr("id")), 1);
-        }
-        else {
-            $(this).addClass(rowClass);
-            ids.push($(this).attr("id"));
+        if (!$(this).hasClass("curr-user")) {
+            var rowClass = "selected-row";
+            if ($(this).hasClass(rowClass)) {
+                $(this).removeClass(rowClass);
+                ids.splice(ids.indexOf($(this).attr("id")), 1);
+            }
+            else {
+                $(this).addClass(rowClass);
+                ids.push($(this).attr("id"));
+            }
         }
     })
 
@@ -78,5 +85,5 @@
             }
         });
     })
-   
+
 </script>

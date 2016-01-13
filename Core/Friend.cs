@@ -19,5 +19,16 @@ namespace IBet.Domain.Core
 
         public virtual ApplicationUser UserFriend { get; set; }
 
+        public Friend()
+        {
+
+        }
+
+        public Friend(string userId, string friendId)
+        {
+            this.UserFriendId = friendId;
+            this.UserId = userId;
+            this.IsDeleted = false;
+        }     
     }
 }

@@ -33,7 +33,7 @@ namespace IBet.Domain.Core
 
         }
 
-        public News(string userId, string name, string description, string photoName = "")
+        public News(string userId, string name, string description, string photoName = "news_nophoto.png")
         {
             this.UserId = userId;
             this.Name = name;

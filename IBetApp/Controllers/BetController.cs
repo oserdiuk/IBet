@@ -38,7 +38,8 @@ namespace IBetApp.Controllers
             CreateBetViewModel model = new CreateBetViewModel();
             model.Users = AutoMapper.Mapper.Map<IEnumerable<UserInfoViewModel>>(unitOfWork.UsersRepository.GetAll().Where(u => users.Contains(u.Id)).ToList());
             model.AddInterests(unitOfWork.InterestsRepository.GetAll().ToList());
-            return View(model);
+            model.Description = "jn;jbo;";
+                return View(model);
         }
 
         [HttpPost]
@@ -47,9 +48,10 @@ namespace IBetApp.Controllers
             try
             {
                 CreateBetViewModel model = JsonConvert.DeserializeObject<CreateBetViewModel>(jsonModel);
-                model.InterestName = "3";
+                model.InterestName = 3;
                 Bet bet = AutoMapper.Mapper.Map<CreateBetViewModel, Bet>(model);
                 bet.StatusId = BetsRepository.GetStatusNumber(BetStatus.Applying);
+                bet.Interest = unitOfWork.InterestsRepository.Get(bet.InterestId);
                 unitOfWork.BetsRepository.Create(bet);
                 bet.Id = unitOfWork.BetsRepository.GetAll().LastOrDefault().Id;
                 string curUserId = unitOfWork.UsersRepository.GetAll().Where(u => u.UserName == User.Identity.Name).FirstOrDefault().Id;
@@ -82,7 +84,7 @@ namespace IBetApp.Controllers
         {
             try
             {
-                var users = System.Web.Helpers.Json.Decode<IEnumerable<UserInfoViewModel>>(jsonModel).ToList();
+                var users = JsonConvert.DeserializeObject<IEnumerable<UserInfoViewModel>>(jsonModel).ToList();
                 users.Remove(users.Where(u => u.Id == id).FirstOrDefault());
                 if (users.Count == 0)
                 {

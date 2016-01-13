@@ -250,6 +250,7 @@
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewsInfoViewModel.cs" />
     <Compile Include="Models\UserInfoViewModel.cs" />
     <Compile Include="netfx\System\Guard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -264,6 +265,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\b49f707a-e61e-48e5-a240-792d6de59857.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\News\news_nophoto.png" />
     <Content Include="Content\Images\nophoto.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

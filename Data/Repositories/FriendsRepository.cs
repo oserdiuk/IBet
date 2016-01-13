@@ -3,13 +3,14 @@ using IBet.Domain.Interfaces;
 using IBet.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace IBet.Data.Repositories
 {
-    public class FriendsRepository : IRepository<Friend>
+    public class FriendsRepository 
     {
         private ApplicationDbContext context;
 
@@ -19,27 +20,28 @@ namespace IBet.Data.Repositories
         }
         public void Create(Friend item)
         {
-            throw new NotImplementedException();
+            this.context.Friends.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(string userId, string friendId)
         {
-            throw new NotImplementedException();
+            context.Friends.Where(f => (f.UserId == userId && f.UserFriend.UserName == friendId) ||
+                (f.UserFriendId == friendId && f.UserId == userId)).ForEachAsync(f => { f.IsDeleted = true; });
         }
 
         public Friend Get(int id)
         {
-            throw new NotImplementedException();
+            return context.Friends.Find(id);
         }
 
         public IEnumerable<Friend> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Friends;
         }
 
         public void Update(Friend item)
         {
-            throw new NotImplementedException();
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }

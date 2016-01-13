@@ -33,9 +33,10 @@ namespace IBetApp.Models
         public double MoneySum { get; set; }
 
         [DisplayName("Interest: ")]
-        public string InterestName { get; set; }
+        public int InterestName { get; set; }
 
         [DisplayName("Description: ")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         public IEnumerable<UserInfoViewModel> Users { get; set; }
@@ -53,7 +54,7 @@ namespace IBetApp.Models
             this.Interests = new List<SelectListItem>();
             foreach (var item in interests)
             {
-                if (!this.Interests.Select(i => i.Text.ToLower()).Contains(item.InterestTitle.ToLower()))
+                if (!Interests.Select(i => i.Text.ToLower()).Contains(item.InterestTitle.ToLower()))
                 {
                     this.Interests.Add(new SelectListItem()
                     {

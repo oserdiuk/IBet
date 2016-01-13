@@ -18,6 +18,8 @@ namespace IBetApp.Models
         public string Country { get; set; }
         public double MoneyLeft { get; set; }
         public string ImageName { get; set; }
+
+        public List<NewsInfoViewModel> News { get; set; }
     }
 
     public class UserSummaryViewModel

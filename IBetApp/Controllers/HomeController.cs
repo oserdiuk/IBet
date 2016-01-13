@@ -36,6 +36,20 @@ namespace IBetApp.Controllers
             return View(model);
         }
 
+        public ActionResult ViewUserPage(string id)
+        {
+            UserInfoViewModel model = AutoMapper.Mapper.Map<UserInfoViewModel>(unitOfWork.UsersRepository.Get(id));
+            if (User.Identity.Name != model.UserName ||
+                unitOfWork.FriendsRepository.GetAll()
+                .Where(f => !f.IsDeleted &&
+                ((f.UserId == model.Id && f.UserFriend.UserName == User.Identity.Name) ||
+                (f.UserFriendId == model.Id && f.User.UserName == User.Identity.Name))).Count() > 0)
+            {
+                TempData["AreFriend"]= "true";
+            }
+            return View("~/Views/Manage/Profile.cshtml", model);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
