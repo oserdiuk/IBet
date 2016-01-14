@@ -13,6 +13,7 @@ namespace IBet.Domain.Core
         [ForeignKey("UserFriend")]
         public string UserFriendId { get; set; }
 
+        
         public bool IsDeleted { get; set; }
 
         public virtual ApplicationUser User { get; set; }

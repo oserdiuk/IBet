@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IBet.Data.Repositories
 {
-    public class UsersInBetRepository : IRepository<UserInBet>
+    public class UsersInBetRepository
     {
         private ApplicationDbContext context;
 
@@ -28,9 +28,9 @@ namespace IBet.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public UserInBet Get(int id)
+        public UserInBet Get(int betId, string userName)
         {
-            return context.UsersInBet.Find(id);
+            return context.UsersInBet.Where(u => u.BetId == betId && u.User.UserName == userName).FirstOrDefault();
         }
 
         public IEnumerable<UserInBet> GetAll()
@@ -46,9 +46,10 @@ namespace IBet.Data.Repositories
         public void CreateForUser(string userId, Bet bet)
         {
             UnitOfWork unitOfWork = new UnitOfWork();
-            unitOfWork.NewsRepository.Create(new News(userId, "New bet!", String.Format("{0}/n{1}", bet.Interest.InterestTitle, bet.Description)));
+            unitOfWork.NewsRepository.Create(new News(userId, "New bet!", String.Format("{0}.\\r\\n{1}", bet.Interest.InterestTitle, bet.Description)));
             int curNewsId = unitOfWork.NewsRepository.GetAll().LastOrDefault().Id;
             unitOfWork.UsersInBetRepository.Create(new UserInBet(userId, bet.Id, curNewsId));
+            unitOfWork.UsersRepository.Get(userId).MoneyLeft -= bet.MoneySum;
             unitOfWork.Save();
         }
     }

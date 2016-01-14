@@ -33,6 +33,10 @@ namespace IBet.Data.Repositories
         {
             return context.Users.Find(id);
         }
+        public ApplicationUser GetByUserName(string username)
+        {
+            return context.Users.Where(u => u.UserName == username).FirstOrDefault();
+        }
 
         public bool CheckForExisting(string login, string password)
         {

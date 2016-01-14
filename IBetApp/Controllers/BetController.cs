@@ -19,9 +19,18 @@ namespace IBetApp.Controllers
         // GET: Bet
         public ActionResult Index()
         {
-            unitOfWork.BetsRepository.GetPublicBets();
+            IEnumerable<BetInfoViewModel> bets = AutoMapper.Mapper.Map<IEnumerable<BetInfoViewModel>>(unitOfWork.BetsRepository.GetPublicBets());
+            return View(bets);
+        }
 
-            return View();
+        public ActionResult UserBets()
+        {
+            string userId = unitOfWork.UsersRepository.GetByUserName(User.Identity.Name).Id;
+            var usersInBet = unitOfWork.UsersInBetRepository.GetAll().ToList();
+            var bets = usersInBet.Where(b => b.UserId == userId).Select(u => u.Bet).ToList<Bet>();
+            IEnumerable<BetInfoViewModel> betsInfo = AutoMapper.Mapper.Map<IEnumerable<BetInfoViewModel>>(bets);
+            ViewBag.IsMyBets = true;
+            return View("AllBets", betsInfo);
         }
 
         // GET: Bet/Details/5
@@ -38,8 +47,7 @@ namespace IBetApp.Controllers
             CreateBetViewModel model = new CreateBetViewModel();
             model.Users = AutoMapper.Mapper.Map<IEnumerable<UserInfoViewModel>>(unitOfWork.UsersRepository.GetAll().Where(u => users.Contains(u.Id)).ToList());
             model.AddInterests(unitOfWork.InterestsRepository.GetAll().ToList());
-            model.Description = "jn;jbo;";
-                return View(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -48,7 +56,6 @@ namespace IBetApp.Controllers
             try
             {
                 CreateBetViewModel model = JsonConvert.DeserializeObject<CreateBetViewModel>(jsonModel);
-                model.InterestName = 3;
                 Bet bet = AutoMapper.Mapper.Map<CreateBetViewModel, Bet>(model);
                 bet.StatusId = BetsRepository.GetStatusNumber(BetStatus.Applying);
                 bet.Interest = unitOfWork.InterestsRepository.Get(bet.InterestId);
@@ -77,6 +84,7 @@ namespace IBetApp.Controllers
         public ActionResult AllBets()
         {
             List<BetInfoViewModel> bets = AutoMapper.Mapper.Map<IEnumerable<BetInfoViewModel>>(unitOfWork.BetsRepository.GetAll()).ToList();
+            if (ViewBag.SuccesCreateBet == true) ViewBag.SuccesCreateBet = true;
             return View(bets);
         }
 
@@ -121,6 +129,18 @@ namespace IBetApp.Controllers
             unitOfWork.UsersRepository.Get(model.UserId).MoneyLeft += model.MoneyToAdd;
             unitOfWork.Save();
         }
+
+        //TODO Win or lose. Think about database. How to do it
+        //public ActionResult Win(int betId)
+        //{
+        //    unitOfWork.UsersInBetRepository.Get(betId, User.Identity.Name).IsWinner = true;
+        //    unitOfWork.Save();
+        //}
+        //public ActionResult Lose(int betId)
+        //{
+        //    unitOfWork.UsersInBetRepository.Get(betId, User.Identity.Name).IsWinner = false;
+        //    unitOfWork.Save();
+        //}
 
         // GET: Bet/Edit/5
         public ActionResult Edit(int id)

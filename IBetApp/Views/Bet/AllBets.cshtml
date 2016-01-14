@@ -22,16 +22,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-      
+        @if (ViewBag.IsMyBets == true)
+        {
+            <th></th>
+        }
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+           @item.StartDate.ToShortDateString()
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+           @item.EndDate.ToShortDateString()
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MoneySum)
@@ -42,7 +45,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        
+       @if (ViewBag.IsMyBets == true)
+       {
+        <td>
+            @Html.ActionLink("Win", "Win", "Bet", new { betId = item.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Lose", "Lose", "Bet", new { betId = item.Id }, new { @class = "btn btn-default" })
+        </td>
+       }
     </tr>
 }
 

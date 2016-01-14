@@ -10,6 +10,7 @@ using IBetApp.Models;
 using IBet.Infrastructure.Data;
 using IBet.Domain.Core;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace IBetApp.Controllers
 {
@@ -116,7 +117,7 @@ namespace IBetApp.Controllers
             try {
                 unitOfWork.FriendsRepository.Create(new Friend(User.Identity.GetUserId(), userId));
                 unitOfWork.Save();
-                TempData["AreFriend"] = "true";
+                ViewBag.AreFriend = "true";
             }
             catch (Exception ex)
             {
@@ -129,11 +130,9 @@ namespace IBetApp.Controllers
         {
             try
             {
-                //TODO check is it works 
-                unitOfWork.FriendsRepository.Delete(userId, User.Identity.GetUserId());
+                unitOfWork.FriendsRepository.Delete(User.Identity.Name, userId);
                 unitOfWork.Save();
-                //TODO check if temmp data works
-                TempData["AreFriend"] = "false";
+                ViewBag.AreFriend = "false";
             }
             catch (Exception ex)
             {
@@ -141,6 +140,16 @@ namespace IBetApp.Controllers
             }
             return RedirectToAction("ViewUserPage", "Home", new { id = userId });
         }
+
+        public ActionResult UserFriends()
+        {
+            var friendsIds = unitOfWork.FriendsRepository.GetAll().ToList();
+            var g = friendsIds.Where(f => f.UserId == User.Identity.GetUserId());
+            var friends = g.Select(f => f.UserFriend);
+            var model = AutoMapper.Mapper.Map<IEnumerable<UserSummaryViewModel>>(friends);
+            return View("~/Views/Home/AllUsers.cshtml", model);
+        }
+
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

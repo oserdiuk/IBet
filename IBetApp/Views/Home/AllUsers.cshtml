@@ -10,7 +10,6 @@
     </script>
 }
 
-<h2>All Users</h2>
 <a href="#">Bet with chosen users</a>
 <table class="table ">
     <tr>
@@ -51,7 +50,7 @@
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
-                    @Html.ActionLink("Go to user page", "ViewUserPage", new { id = item.Id })
+                    @Html.ActionLink("Go to user page", "ViewUserPage", "Home", new { id = item.Id }, new { })
             </td>
         </tr>
     }

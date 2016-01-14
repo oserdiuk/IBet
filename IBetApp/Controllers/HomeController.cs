@@ -39,13 +39,23 @@ namespace IBetApp.Controllers
         public ActionResult ViewUserPage(string id)
         {
             UserInfoViewModel model = AutoMapper.Mapper.Map<UserInfoViewModel>(unitOfWork.UsersRepository.Get(id));
-            if (User.Identity.Name != model.UserName ||
-                unitOfWork.FriendsRepository.GetAll()
-                .Where(f => !f.IsDeleted &&
-                ((f.UserId == model.Id && f.UserFriend.UserName == User.Identity.Name) ||
-                (f.UserFriendId == model.Id && f.User.UserName == User.Identity.Name))).Count() > 0)
+            
+            if (User.Identity.Name != model.UserName)
             {
-                TempData["AreFriend"]= "true";
+                //if (t.Where(f => !f.IsDeleted &&
+                //       ((f.UserId == model.Id && f.UserFriend.UserName == User.Identity.Name) ||
+                //       (f.UserFriendId == model.Id && f.User.UserName == User.Identity.Name))).Count() > 0)
+                //if (User.Identity.Name != model.UserName &&
+                //      t.Where(f => !f.IsDeleted &&
+                //      f.UserFriendId == model.Id && f.User.UserName == User.Identity.Name).Count() > 0)
+                if(unitOfWork.FriendsRepository.Get(User.Identity.Name, id) != null)
+                {
+                    ViewBag.AreFriend = "true";
+                }
+                else
+                {
+                    ViewBag.AreFriend = "false";
+                } 
             }
             return View("~/Views/Manage/Profile.cshtml", model);
         }

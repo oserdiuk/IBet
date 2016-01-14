@@ -65,3 +65,11 @@ textarea {
 .glyphicon-thumbs-down:hover{
     color:red;
 }
+
+.clear-float{
+    clear:both;
+}
+
+.float-left{
+    float:left; 
+}

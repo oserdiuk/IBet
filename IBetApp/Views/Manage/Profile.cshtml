@@ -10,20 +10,17 @@
     <hr />
     <div class="col-md-5">
         <img src=@String.Format("/Content/Images/{0}", Model.ImageName) class="avatar avatar-large" />
-        
-        @if (TempData["AreFriend"] == "true")
+        <br />
+        <br />
+        @if (ViewBag.AreFriend == "false")
         {
-            <br />
-            <br />
-            if (ViewBag.FriendAdded == "FriendAdded")
-            { 
-                @Ajax.ActionLink("Add to friends", "AddFriend", "Manage", new { userId = Model.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-default" })
-            }
-            else
-            {
-                @Ajax.ActionLink("Remove from friends", "RemoveFriend", "Manage", new { userId = Model.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-default" })
-            }
+            @Ajax.ActionLink("Add to friends", "AddFriend", "Manage", new { userId = Model.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-default" })
         }
+        else if (ViewBag.AreFriend == "true")
+        {
+            @Ajax.ActionLink("Remove from friends", "RemoveFriend", "Manage", new { userId = Model.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-default" })
+        }
+
     </div>
     <div class="col-md-7">
         <dl class="dl-horizontal">
@@ -99,22 +96,26 @@
         <div class="user-news">
             @foreach (var item in Model.News)
             {
-                <div>
+                <div class="col-md-12 clear-float">
                     <h3>@item.Name</h3>
                     <h5>@item.PublishDate</h5>
-                    <div>
-                        <div class="col-md-3">
+                    <div class="clear-float">
+                        <div class="col-md-3 foat-left">
                             <img src=@item.PhotoName class="avatar-medium" />
                         </div>
-                        <div class="col-md-6">
-                            @item.Description
+                        <div class="col-md-6 foat-left">
+                            @item.Description.Replace("\\r\\n", "\r\n");
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 foat-left">
                             <span class="glyphicon glyphicon-thumbs-up"> @item.LikesCount</span>
                             <span class="glyphicon glyphicon-thumbs-down"> @item.DislikesCount</span>
                         </div>
                     </div>
-                </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br /></div>
             }
         </div>
     </div>

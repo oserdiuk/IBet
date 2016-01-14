@@ -76,14 +76,14 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+<script src="~/Scripts/jsmodel.js"></script>
 <script type="text/javascript">
     $('.link').click(function() {
         @*var model = @Html.Raw(Json.Encode(Model));
         alert(JSON.stringify(model));*@
-        var json = JSON.stringify(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
-        alert(json);
-        $.post("/Bet/CreateBet", { jsonModel: json }, function (result) {
+        var json = new JSModel(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
+        var model = JSON.stringify(json.refresh());
+        $.post("/Bet/CreateBet", { jsonModel: model }, function (result) {
             if (result != null) {
                 $("html").html(result);
             }

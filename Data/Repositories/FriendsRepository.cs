@@ -23,15 +23,15 @@ namespace IBet.Data.Repositories
             this.context.Friends.Add(item);
         }
 
-        public void Delete(string userId, string friendId)
+        public void Delete(string userName, string friendId)
         {
-            context.Friends.Where(f => (f.UserId == userId && f.UserFriend.UserName == friendId) ||
-                (f.UserFriendId == friendId && f.UserId == userId)).ForEachAsync(f => { f.IsDeleted = true; });
+            var item = Get(userName, friendId);
+            context.Friends.Remove(item);
         }
 
-        public Friend Get(int id)
+        public Friend Get(string userName, string friendId)
         {
-            return context.Friends.Find(id);
+            return context.Friends.Where(f => (f.User.UserName == userName && f.UserFriendId == friendId)).FirstOrDefault();
         }
 
         public IEnumerable<Friend> GetAll()
