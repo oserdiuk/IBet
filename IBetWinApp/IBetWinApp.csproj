@@ -99,13 +99,19 @@
     <Compile Include="BetsPage.xaml.cs">
       <DependentUpon>BetsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FriendsPage.xaml.cs">
+      <DependentUpon>FriendsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="JsonUtil.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Managers\FriendsManager.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\ApiManager.cs" />
     <Compile Include="Managers\DataStoreManager.cs" />
     <Compile Include="Models\BetModel.cs" />
+    <Compile Include="Models\FriendModel.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\UserInBetModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -113,6 +119,7 @@
       <DependentUpon>NewsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -139,6 +146,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="BetsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FriendsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,6 +17,7 @@ namespace IBetWinApp.Models
         public double MoneySum { get; set; }
 
         public int InterestId { get; set; }
+        public string InterestName { get; set; }
 
         public string Description { get; set; }
 

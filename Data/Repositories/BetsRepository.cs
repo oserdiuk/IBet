@@ -51,7 +51,7 @@ namespace IBet.Data.Repositories
 
         public IEnumerable<Bet> GetTheNewestBets(int countOfBets)
         {
-            return this.GetAll().Where(b=>b.IsPublic).OrderByDescending(b => b.StartDate).Take(countOfBets);
+            return this.GetAll().OrderByDescending(b => b.StartDate).Take(countOfBets);
         }
 
         public static int GetStatusNumber(BetStatus status)

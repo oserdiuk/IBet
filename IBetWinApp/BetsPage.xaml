@@ -6,26 +6,89 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView x:Name="betsListView" 
-                  HorizontalAlignment="Center">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="200"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Path=StartDate}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <TextBlock Text="{Binding Path=EndDate}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <TextBlock Text="{Binding Path=MoneySum}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <TextBlock Text="Fat" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+    
+    <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" 
+                CompactPaneLength="50" OpenPaneLength="150">
+        <SplitView.Pane>
+            <StackPanel Background="Gray">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
+                     Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button 
+                        x:Name="userProfileButton" 
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE76E;"
+                        Width="50" 
+                        Height="50" 
+                        Background="Transparent"
+                        Click="userProfileButton_Click"/>
+                    <TextBlock x:Name="userProfileButtonText" Text="username" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button 
+                        x:Name="myBetsButton" 
+                        FontFamily="Segoe MDL2 Assets" 
+                        Content="&#xE10F;"
+                        Width="50"
+                        Height="50"
+                        Background="Transparent"
+                        Click="MyBetsButton_Click"/>
+                    <TextBlock Text="My bets" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="myFriendsButton" 
+                            FontFamily="Segoe MDL2 Assets" 
+                            Content="&#xE77B;"
+                            Width="50"
+                            Height="50"
+                            Background="Transparent"
+                            Click="myFriendsButton_Click"/>
+                    <TextBlock Text="My friends" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <StackPanel Margin="40,0,0,0">
+                    <TextBlock Text="My bets"
+                           Margin="0,10,0,10" FontSize="20" FontWeight="SemiLight" IsDoubleTapEnabled="False" IsTapEnabled="False"/>
+                <ListView x:Name="betsListView" 
+                  HorizontalAlignment="Left">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="5,10,5,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Start date:   "/>
+                                        <TextBlock 
+                                        Text="{Binding Path=StartDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd.MM.yyyy}'}" 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="End date:   "/>
+                                        <TextBlock 
+                                        Text="{Binding Path=EndDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd.MM.yyyy}'}"  
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Sum of money: "/>
+                                    <TextBlock
+                                        Text="{Binding Path=MoneySum}" 
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                                <TextBlock 
+                                    Text="{Binding Path=Description}"
+                                    Margin="0,5,0,0"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                </StackPanel>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+    
 </Page>

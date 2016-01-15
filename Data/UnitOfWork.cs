@@ -1,4 +1,5 @@
 ﻿using IBet.Data.Repositories;
+using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IBet.Infrastructure.Data
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

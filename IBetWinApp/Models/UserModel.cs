@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace IBetWinApp.Models
 {
@@ -19,7 +20,24 @@ namespace IBetWinApp.Models
         public double MoneyLeft { get; set; }
         public string ImageName { get; set; }
 
+        public BitmapImage AvatarImage
+        {
+            get
+            {
+                string avatarURI = String.Format(@"http://localhost:54407/Content/Images/{0}", this.ImageName);
+                return new BitmapImage(new Uri(avatarURI, UriKind.Absolute));
+            }
+        }
+
+        /*
+        xmlns:converters="using:IBetWinApp.Converters">
+    <Page.Resources>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
+    </Page.Resources>
+        */
         public ICollection<UserInBetModel> UserInBets { get; set; }
         public ICollection<NewsModel> News { get; set; }
+        public ICollection<FriendModel> Connections { get; set; }
+
     }
 }

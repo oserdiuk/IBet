@@ -21,7 +21,7 @@ namespace IBetWinApp.Managers
                 parametersList.Add(String.Format("{0}={1}", keyValuePair.Key, keyValuePair.Value));
             }
 
-            return String.Join<string>("&", parametersList);
+            return "?" + String.Join<string>("&", parametersList);
         }
         private static FormUrlEncodedContent PostParameterBody(Dictionary<string, string> paramters)
         {

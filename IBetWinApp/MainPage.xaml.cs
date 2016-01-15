@@ -38,15 +38,15 @@ namespace IBetWinApp
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.loginTB.Text = "okserdiuk@gmail.com";
-            this.passTB.Text = "Qwerty_123";
+            //this.loginTB.Text = "o_serdyuk@hotmail.com";
+           // this.passTB.Text = "Qwerty_123";
         }
 
         private async void loginButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                UserModel signedInUser = await AccountManager.Login(this.loginTB.Text, this.passTB.Text);
+                UserModel signedInUser = await AccountManager.Login(this.loginTB.Text, this.passTB.Password);
                 string displayMessage;
                 if (signedInUser != null)
                 {

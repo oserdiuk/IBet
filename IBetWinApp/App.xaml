@@ -3,7 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:IBetWinApp"
-    RequestedTheme="Light">
-
-        
+    RequestedTheme="Light"
+      xmlns:con="using:IBetWinApp.Converters">
+    <Application.Resources>
+        <con:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Application.Resources>
 </Application>

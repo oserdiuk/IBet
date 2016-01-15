@@ -98,7 +98,7 @@
             {
                 <div class="col-md-12 clear-float">
                     <h3>@item.Name</h3>
-                    <h5>@item.PublishDate</h5>
+                    <h5>@item.PublishDate.ToShortDateString()</h5>
                     <div class="clear-float">
                         <div class="col-md-3 foat-left">
                             <img src=@item.PhotoName class="avatar-medium" />
@@ -106,9 +106,11 @@
                         <div class="col-md-6 foat-left">
                             @item.Description.Replace("\\r\\n", "\r\n");
                         </div>
-                        <div class="col-md-3 foat-left">
-                            <span class="glyphicon glyphicon-thumbs-up"> @item.LikesCount</span>
-                            <span class="glyphicon glyphicon-thumbs-down"> @item.DislikesCount</span>
+                        <div class="col-md-3 foat-left" id="@item.Id">
+                            @*
+                                TODO likes dislikes
+                                <div class="like"><span class="glyphicon glyphicon-thumbs-up"> @item.LikesCount</span></div>
+                            <div class="dislike"><span class="glyphicon glyphicon-thumbs-down"> @item.DislikesCount</span></div>*@
                         </div>
                     </div>
                     <br />
@@ -120,3 +122,31 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+    $(".like").click(function () {
+        var newsId = $(this).html;
+        alert(newsId);
+        //$.post("/Manage/LikeNews", { id: newsId }, function (result) {
+        //    if (result != null) {
+        //        $("html").html(result);
+        //    }
+        //    else {
+        //        alert("fail");
+        //    }
+        //});
+        //if (!$(this).hasClass("curr-user")) {
+        //    var rowClass = "selected-row";
+        //    if ($(this).hasClass(rowClass)) {
+        //        $(this).removeClass(rowClass);
+        //        ids.splice(ids.indexOf($(this).attr("id")), 1);
+        //    }
+        //    else {
+        //        $(this).addClass(rowClass);
+        //        ids.push($(this).attr("id"));
+        //    }
+        //}
+    })
+    </script>

@@ -1,4 +1,5 @@
-﻿using IBetWinApp.Models;
+﻿using IBetWinApp.Managers;
+using IBetWinApp.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,28 @@ namespace IBetWinApp
             base.OnNavigatedTo(e);
             this.bets = (List<BetModel>)e.Parameter;
             this.betsListView.ItemsSource = this.bets;
+        }
+
+        private void MyBetsButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserModel user = DataStoreManager.SharedManager.CurrentUser;
+            List<BetModel> bets = user.UserInBets.Select(u => u.Bet).ToList<BetModel>();
+            this.Frame.Navigate(typeof(BetsPage), bets);
+        }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+        }
+
+        private void myFriendsButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(FriendsPage));
+        }
+
+        private void userProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(NewsPage));
         }
     }
 }

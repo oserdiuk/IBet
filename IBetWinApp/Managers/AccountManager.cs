@@ -20,15 +20,7 @@ namespace IBetWinApp.Managers
                     ["password"] = pass
                 });
             UserModel user = null;
-            try
-            {
-                result = result.Replace(@"\","");
-                result = result.Substring(1, result.Length - 2);
-                user = JsonConvert.DeserializeObject<UserModel>(result);
-            } catch (Exception ex)
-            {
-
-            }
+            user = JsonUtil.DeserializeObject<UserModel>(result);
             return user;
         }
     }

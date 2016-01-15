@@ -11,16 +11,22 @@
         <StackPanel Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
+            <Image 
+                x:Name="logo"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Height="100"
+                Margin="0,0,0,0" 
+                Width="100" Source="Assets/Square71x71Logo.png"/>
             <TextBlock Text="Login"/>
             <TextBox 
                 x:Name="loginTB"
                 TextAlignment="Left"
                 Width="200"
                 PlaceholderText="Enter login"/>
-            <TextBlock Text="Password"/>
-            <TextBox 
+            <TextBlock Text="Password" />
+            <PasswordBox 
                 x:Name="passTB"
-                TextAlignment="Left"
                 Width="200"
                 PlaceholderText="Enter password"/>
             <Button 
@@ -30,7 +36,7 @@
                 Content="Login"
                 Margin="10"
                 HorizontalAlignment="Center" 
-                Click="loginButton_Click"/>
+                Click="loginButton_Click" BorderBrush="{x:Null}" BorderThickness="1,2"/>
         </StackPanel>
     </Grid>
 </Page>

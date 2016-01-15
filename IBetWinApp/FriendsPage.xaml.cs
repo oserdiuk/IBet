@@ -13,7 +13,6 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -23,25 +22,18 @@ namespace IBetWinApp
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NewsPage : Page
+    public sealed partial class FriendsPage : Page
     {
-        private List<NewsModel> news;
-        public NewsPage()
+        public FriendsPage()
         {
             this.InitializeComponent();
+            this.Loaded += FriendsPage_Loaded;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async void FriendsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            base.OnNavigatedTo(e);
-            this.news = (List<NewsModel>)e.Parameter;
-            this.newsListView.ItemsSource = this.news;
-
-            UserModel user = DataStoreManager.SharedManager.CurrentUser;
-            this.userNameTb.Text = user.UserName;
-            this.userProfileButtonText.Text = user.UserName;
-            this.userAvatar.Source = user.AvatarImage;
-            this.moneyLeftTb.Text = Convert.ToString(user.MoneyLeft);
+            var userFriends = await FriendsManager.GetCurrentUserFriends();
+            this.friendsListView.ItemsSource = userFriends;
         }
 
         private void MyBetsButton_Click(object sender, RoutedEventArgs e)
@@ -56,12 +48,7 @@ namespace IBetWinApp
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        private void myFriendsButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(FriendsPage));
-        }
-
-        private void userProfileButton_Click(object sender, RoutedEventArgs e)
+        private void UserProfileButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(NewsPage));
         }
